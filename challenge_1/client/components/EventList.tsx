@@ -5,17 +5,27 @@ export interface EventListProps {
   eventsList: Array<Object>;
 }
 
+export interface  EventListEntryObj {
+  category1: string;
+  category2: string;
+  date: string;
+  description: string;
+  granularity: string;
+  lang: string;
+  key: number;
+}
+
 export const EventList = (props: EventListProps) => {
 
   return (
-    <div>{ props.eventsList.map((eventEntry, index) => {
+    <div>{ props.eventsList.map(({category1, category2, date, description, granularity, lang} : EventListEntryObj, index: number) => {
       return <EventListEntry
-        category1={eventEntry['category1']}
-        category2={eventEntry['category2']}
-        date={eventEntry['date']}
-        description={eventEntry['description']}
-        granularity={eventEntry['granularity']}
-        lang={eventEntry['lang']}
+        category1={category1}
+        category2={category2}
+        date={date}
+        description={description}
+        granularity={granularity}
+        lang={lang}
         key={index}
       />
     }) }</div>

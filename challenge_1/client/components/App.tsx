@@ -1,6 +1,7 @@
 import * as React from "react";
 import axios from 'axios';
 import { EventList } from './EventList';
+// @ts-ignore
 import ReactPaginate from 'react-paginate';
 
 export interface IEventData {
@@ -19,8 +20,8 @@ export const App = () => {
   var [searchText, setSearchText] = React.useState('');
   var [queryText, setQueryText] = React.useState('');
 
-  const parseLinkHeader = ( linkHeader ) => {
-    return Object.fromEntries( linkHeader.split( ", " ).map( header => header.split( "; " ) ).map( header => [ header[1].replace( /"/g, "" ).replace( "rel=", "" ), header[0].slice( 1, -1 ) ] ) );
+  const parseLinkHeader = ( linkHeader : any ) => {
+    return Object.fromEntries( linkHeader.split( ", " ).map( (header : string) => header.split( "; " ) ).map( (header : string) => [ header[1].replace( /"/g, "" ).replace( "rel=", "" ), header[0].slice( 1, -1 ) ] ) );
   }
 
   React.useEffect(() => {
@@ -32,20 +33,21 @@ export const App = () => {
       console.log(`this is the page ${page}`)
       const response = await axios.get(encodeURI(`http://localhost:3000/events?_page=${page}${queryText}`))
       setEvents(response.data);
+      console.log(response.headers.link)
       const linksObj = parseLinkHeader(response.headers.link)
-      // console.log(linksObj)
+      console.log(linksObj)
       setNumPages(Number(linksObj['last'].split('_page=')[1].split('&')[0]));
     } catch (err) {
       console.log(err)
     }
   }
 
-  const paginationClickHandler = (data) => {
+  const paginationClickHandler = (data : any) => {
     // pagination index's at 0, json-server's pagination index's on 1
     setPage(data.selected + 1)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e : any) => {
     e.preventDefault();
     console.log(searchText);
     setQueryText(`&q=${searchText}`);
@@ -66,6 +68,7 @@ export const App = () => {
       </form>
       <EventList eventsList={events} />
       <ReactPaginate
+        // onPageChange={paginationClickHandler}
         onPageChange={paginationClickHandler}
         previousLabel={'previous page'}
         initialPage={(page - 1)}
