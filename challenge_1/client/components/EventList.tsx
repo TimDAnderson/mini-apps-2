@@ -5,6 +5,12 @@ export interface EventListProps {
   eventsList: Array<Object>;
 }
 
+// declare namespace JSX {
+//   interface IntrinsicElements {
+//     div: any;
+//   }
+// }
+
 export interface  EventListEntryObj {
   category1: string;
   category2: string;

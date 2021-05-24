@@ -7,6 +7,7 @@ export interface EventListListProps {
   description: string;
   granularity: string;
   lang: string;
+  key: number;
 }
 
 export const EventListEntry = (props: EventListListProps) => {

@@ -1,24 +1,15 @@
 import * as React from "react";
 import axios from 'axios';
 import { EventList } from './EventList';
-// @ts-ignore
 import ReactPaginate from 'react-paginate';
-
-export interface IEventData {
-  events: Array<Object>;
-  page: number;
-  numPages: number;
-  searchText: string;
-  queryText: string;
-}
 
 export const App = () => {
 
-  var [events, setEvents] = React.useState([]);
-  var [page, setPage] = React.useState(1);
-  var [numPages, setNumPages] = React.useState(1);
-  var [searchText, setSearchText] = React.useState('');
-  var [queryText, setQueryText] = React.useState('');
+  var [events, setEvents] = React.useState<Array<Object>>([]);
+  var [page, setPage] = React.useState<number>(1);
+  var [numPages, setNumPages] = React.useState<number>(1);
+  var [searchText, setSearchText] = React.useState<string>('');
+  var [queryText, setQueryText] = React.useState<string>('');
 
   const parseLinkHeader = ( linkHeader : any ) => {
     return Object.fromEntries( linkHeader.split( ", " ).map( (header : string) => header.split( "; " ) ).map( (header : string) => [ header[1].replace( /"/g, "" ).replace( "rel=", "" ), header[0].slice( 1, -1 ) ] ) );
@@ -42,11 +33,6 @@ export const App = () => {
     }
   }
 
-  const paginationClickHandler = (data : any) => {
-    // pagination index's at 0, json-server's pagination index's on 1
-    setPage(data.selected + 1)
-  }
-
   const handleSubmit = (e : any) => {
     e.preventDefault();
     console.log(searchText);
@@ -68,11 +54,12 @@ export const App = () => {
       </form>
       <EventList eventsList={events} />
       <ReactPaginate
-        // onPageChange={paginationClickHandler}
-        onPageChange={paginationClickHandler}
+        onPageChange={(e) => {setPage(e.selected + 1)}}
         previousLabel={'previous page'}
         initialPage={(page - 1)}
         pageCount={numPages}
+        pageRangeDisplayed={10}
+        marginPagesDisplayed={5}
       />
     </div>
   )
