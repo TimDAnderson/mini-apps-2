@@ -34,7 +34,7 @@ module.exports = {
       template: path.resolve(`${__dirname}/client/index.html`),
     }),
     new MiniCssExtractPlugin({
-      filename: "./client/yourfile.css",
+      filename: "./client/styles.css",
     }),
   ],
 };
