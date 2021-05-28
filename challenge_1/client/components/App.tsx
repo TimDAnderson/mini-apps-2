@@ -24,8 +24,8 @@ export const App = () => {
   var [numPages, setNumPages] = React.useState<number>(1);
   var [searchText, setSearchText] = React.useState<string>('');
   var [queryText, setQueryText] = React.useState<string>('');
-  var [checkTracker, setCheckTracker] = React.useState<any>({});
-  var [detectTrackerChange, setDetectTrackerChange] = React.useState<any>(0);
+  var [checkTracker, setCheckTracker] = React.useState<{ [key: string]: boolean; }>({});
+  var [detectTrackerChange, setDetectTrackerChange] = React.useState<number>(0);
   var [favorites, setFavorites] = React.useState<Array<Object>>([]);
 
   const parseLinkHeader = ( linkHeader : any ) => {
@@ -69,7 +69,7 @@ export const App = () => {
     setCheckTracker(tempObject)
   }
 
-  const handleFavoriteSave = (e: any) => {
+  const handleFavoriteSave = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     let tempArray = []
     for (let property in checkTracker) {
