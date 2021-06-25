@@ -16,17 +16,7 @@
   \***********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.App = void 0;\nconst React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ScoreInput_1 = __webpack_require__(/*! ./ScoreInput */ \"./client/components/ScoreInput.tsx\");\nconst ScoreBoard_1 = __webpack_require__(/*! ./ScoreBoard */ \"./client/components/ScoreBoard.tsx\");\nconst App = () => {\n    var [score, setScore] = React.useState(0);\n    var [roll, setRoll] = React.useState(1);\n    var [currentFrame, setCurrentFrame] = React.useState(1);\n    var [frames, setFrames] = React.useState([\n        {\n            frame: 1,\n            score: 0,\n        },\n        {\n            frame: 2,\n            score: 0,\n        },\n        {\n            frame: 3,\n            score: 0,\n        },\n        {\n            frame: 4,\n            score: 0,\n        },\n        {\n            frame: 5,\n            score: 0,\n        },\n        {\n            frame: 6,\n            score: 0,\n        },\n        {\n            frame: 7,\n            score: 0,\n        },\n        {\n            frame: 8,\n            score: 0,\n        },\n        {\n            frame: 9,\n            score: 0,\n        },\n        {\n            frame: 10,\n            score: 0,\n        },\n    ]);\n    return (React.createElement(\"div\", null,\n        \"Welcome to the game\",\n        React.createElement(ScoreInput_1.ScoreInput, null),\n        React.createElement(ScoreBoard_1.ScoreBoard, null),\n        \"Current Score is \",\n        score));\n};\nexports.App = App;\n\n\n//# sourceURL=webpack://challenge_3/./client/components/App.tsx?");
-
-/***/ }),
-
-/***/ "./client/components/ScoreBoard.tsx":
-/*!******************************************!*\
-  !*** ./client/components/ScoreBoard.tsx ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.ScoreBoard = void 0;\nconst React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ScoreBoard = props => {\n    return (React.createElement(\"div\", null, \"ScoreBoard\"));\n};\nexports.ScoreBoard = ScoreBoard;\n\n\n//# sourceURL=webpack://challenge_3/./client/components/ScoreBoard.tsx?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.App = void 0;\nconst React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ScoreInput_1 = __webpack_require__(/*! ./ScoreInput */ \"./client/components/ScoreInput.tsx\");\nconst BowlingGame_1 = __webpack_require__(/*! ../BowlingGame */ \"./client/BowlingGame.js\");\nconst BowlingFrame = (props) => {\n    return (React.createElement(\"div\", { className: 'frame' },\n        React.createElement(\"div\", { className: 'frameNumber' }, props.frameNumber),\n        React.createElement(\"div\", { className: 'frameScore' },\n            React.createElement(\"div\", { className: 'left box' }, props.leftBox),\n            React.createElement(\"div\", { className: 'right box' }, props.rightBox),\n            React.createElement(\"div\", { className: 'extra box' }, props.extraBox)),\n        React.createElement(\"div\", { className: 'frameScore' }, !isNaN(props.score) && props.score)));\n};\nclass App extends React.Component {\n    constructor(props) {\n        super(props);\n        this.roll = (pins) => {\n            console.log('someone rolled');\n            this.game.roll(pins);\n            this.setState({\n                score: this.game.score()\n            });\n        };\n        this.reset = () => {\n            this.game.reset();\n            this.setState({\n                score: this.game.score()\n            });\n        };\n        this.pinsToHit = () => {\n            return this.game.pinsToHit();\n        };\n        this.game = BowlingGame_1.default.create();\n        this.state = {\n            score: this.game.score()\n        };\n    }\n    render() {\n        console.log(this.state['score']);\n        return (React.createElement(\"div\", null,\n            \"Welcome Player 1\",\n            React.createElement(ScoreInput_1.ScoreInput, { roll: this.roll.bind(this), reset: this.reset, pinsToHit: this.pinsToHit() }),\n            React.createElement(\"div\", { className: 'scoreBoard' }, [...Array(10)].map((item, index) => {\n                return (React.createElement(BowlingFrame, { key: index, frameNumber: index + 1, leftBox: this.state['score'][index]['leftBox'], rightBox: this.state['score'][index]['rightBox'], extraBox: this.state['score'][index]['extraBox'], score: this.state['score'][index]['cumulativeScore'] }));\n            }))));\n    }\n    ;\n}\nexports.App = App;\n\n\n//# sourceURL=webpack://challenge_3/./client/components/App.tsx?");
 
 /***/ }),
 
@@ -36,7 +26,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
   \******************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.ScoreInput = void 0;\nconst React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ScoreInput = props => {\n    return (React.createElement(\"div\", null,\n        React.createElement(\"table\", null,\n            React.createElement(\"tbody\", null,\n                React.createElement(\"tr\", null,\n                    React.createElement(\"td\", { onClick: () => { } }, \"1\"),\n                    React.createElement(\"td\", { onClick: () => { } }, \"2\"),\n                    React.createElement(\"td\", { onClick: () => { } }, \"3\")),\n                React.createElement(\"tr\", null,\n                    React.createElement(\"td\", { onClick: () => { } }, \"4\"),\n                    React.createElement(\"td\", { onClick: () => { } }, \"5\"),\n                    React.createElement(\"td\", { onClick: () => { } }, \"6\")),\n                React.createElement(\"tr\", null,\n                    React.createElement(\"td\", { onClick: () => { } }, \"7\"),\n                    React.createElement(\"td\", { onClick: () => { } }, \"8\"),\n                    React.createElement(\"td\", { onClick: () => { } }, \"9\")),\n                React.createElement(\"tr\", null,\n                    React.createElement(\"td\", { onClick: () => { } }, \"X\"),\n                    React.createElement(\"td\", null, \" \"),\n                    React.createElement(\"td\", { onClick: () => { } }, \"0\"))))));\n};\nexports.ScoreInput = ScoreInput;\n\n\n//# sourceURL=webpack://challenge_3/./client/components/ScoreInput.tsx?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.ScoreInput = void 0;\nconst React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ScoreInput = props => {\n    console.log(props);\n    console.log(props.roll);\n    return (React.createElement(\"div\", { className: 'ScoreInput' },\n        React.createElement(\"div\", { className: 'leftInput' }, [...Array(props.pinsToHit + 1)].map((playObj, index) => {\n            return (React.createElement(\"button\", { key: index, className: 'roll', onClick: () => { props.roll(index); } }, index));\n        })),\n        React.createElement(\"div\", { className: 'rightInput' },\n            React.createElement(\"button\", { className: 'resetButton', onClick: () => { props.reset(); } }, \"Reset Game\"),\n            React.createElement(\"div\", null,\n                \"Pins still standing: \",\n                props.pinsToHit))));\n};\nexports.ScoreInput = ScoreInput;\n\n\n//# sourceURL=webpack://challenge_3/./client/components/ScoreInput.tsx?");
 
 /***/ }),
 
@@ -47,6 +37,16 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst React = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\nconst ReactDOM = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\nconst App_1 = __webpack_require__(/*! ./components/App */ \"./client/components/App.tsx\");\nReactDOM.render(React.createElement(App_1.App, null), document.getElementById(\"app\"));\n\n\n//# sourceURL=webpack://challenge_3/./client/index.tsx?");
+
+/***/ }),
+
+/***/ "./client/BowlingGame.js":
+/*!*******************************!*\
+  !*** ./client/BowlingGame.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ BowlingGame)\n/* harmony export */ });\nclass BowlingGame {\n  constructor  () {\n    this.rolls = [];\n    this.currentRoll = 0;\n  }\n\n  static create = () => new BowlingGame();\n\n  roll (pins) {\n    this.rolls[this.currentRoll++] = pins\n  }\n\n  reset () {\n    this.rolls = [];\n    this.currentRoll = 0;\n  }\n\n  pinsToHit () {\n    const scoreData = this.score();\n    // iterate over frames to get pins up on last frame rolled\n    let pinsToHit = 10;\n    scoreData.forEach(frame => {\n      if (frame.pinsToHit !== null && !isNaN(frame.pinsToHit)) {\n        pinsToHit = frame.pinsToHit\n      }\n    });\n    return pinsToHit\n  }\n\n  score () {\n    let scoreData = [];\n    let score = 0;\n    let frameIndex = 0;\n\n    const roll1 = () => this.rolls[frameIndex];\n    const roll2 = () => this.rolls[frameIndex + 1];\n    const roll3 = () => this.rolls[frameIndex + 2];\n\n    const sumOfRolls = () => roll1() + roll2();\n    const spareBonus = () => roll3();\n    const strikeBonus = () => roll2() + roll3();\n    const isStrike = () => roll1() === 10;\n    const isSpare = () => sumOfRolls() === 10;\n\n    const saveFrame = (scoreData, leftBox, rightBox, score, pinsToHit) => {\n      if (scoreData.length < 9) {\n        scoreData.push({\n          leftBox,\n          rightBox,\n          cumulativeScore: score,\n          pinsToHit\n        })\n      } else {\n        const box1 = roll1() === 10 ? 'X' : roll1();\n        const box2 = roll2() === 10 ? 'X' : isSpare() ? '/' : roll2();\n        let box3;\n        if (roll3() === 10) {\n          box3 = 'X';\n        } else if (roll1() === 10 || roll1() + roll2() === 10) {\n          box3 = roll3();\n        } else {\n          box3 = '';\n        }\n\n        scoreData.push({\n          leftBox: box1,\n          rightBox: box2,\n          cumulativeScore: score,\n          pinsToHit,\n          extraBox: box3\n        });\n      }\n    };\n\n    [...Array(10)].forEach((val, frame) => {\n      if (isStrike()) {\n        score += 10 + strikeBonus();\n        saveFrame(scoreData, '', 'X', score, 10);\n        frameIndex += 1;\n      } else if (isSpare()) {\n        score += 10 + spareBonus();\n        saveFrame(scoreData, roll1(), '/', score, 10);\n        frameIndex += 2;\n      } else {\n        score += sumOfRolls();\n        const pinsToHit = roll2() !== undefined ? 10 : 10 - roll1();\n        saveFrame(scoreData, roll1(), roll2(), score, pinsToHit);\n        frameIndex += 2;\n      }\n    })\n\n    return scoreData;\n  }\n}\n\n//# sourceURL=webpack://challenge_3/./client/BowlingGame.js?");
 
 /***/ }),
 
@@ -165,6 +165,35 @@ eval("\n\nif (false) {} else {\n  module.exports = __webpack_require__(/*! ./cjs
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 /******/ 	

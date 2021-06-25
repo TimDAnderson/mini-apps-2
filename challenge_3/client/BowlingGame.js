@@ -4,16 +4,22 @@ export default class BowlingGame {
     this.currentRoll = 0;
   }
 
+  static create = () => new BowlingGame();
+
+  roll (pins) {
+    this.rolls[this.currentRoll++] = pins
+  }
+
   reset () {
     this.rolls = [];
     this.currentRoll = 0;
   }
 
   pinsToHit () {
-    const scores = this.score();
+    const scoreData = this.score();
     // iterate over frames to get pins up on last frame rolled
     let pinsToHit = 10;
-    scores.forEach(frame => {
+    scoreData.forEach(frame => {
       if (frame.pinsToHit !== null && !isNaN(frame.pinsToHit)) {
         pinsToHit = frame.pinsToHit
       }
@@ -22,7 +28,7 @@ export default class BowlingGame {
   }
 
   score () {
-    let scores = [];
+    let scoreData = [];
     let score = 0;
     let frameIndex = 0;
 
@@ -48,7 +54,7 @@ export default class BowlingGame {
         const box1 = roll1() === 10 ? 'X' : roll1();
         const box2 = roll2() === 10 ? 'X' : isSpare() ? '/' : roll2();
         let box3;
-        if (box3() === 10) {
+        if (roll3() === 10) {
           box3 = 'X';
         } else if (roll1() === 10 || roll1() + roll2() === 10) {
           box3 = roll3();
