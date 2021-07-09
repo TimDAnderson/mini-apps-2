@@ -1,7 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
 import { ScoreInput } from './ScoreInput'
-import { ScoreBoard } from './ScoreBoard'
 import BowlingGame from '../BowlingGame'
 
 const BowlingFrame = (props) => {
