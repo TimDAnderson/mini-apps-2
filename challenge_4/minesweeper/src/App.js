@@ -1,13 +1,82 @@
 import React from 'react';
-// import logo from './logo.svg';
-// import { Counter } from './features/counter/Counter';
 import './App.css';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { modifyboard, modifyMines, revealEmpty, getHidden, getFlags } from './features/counter/boardSlice'
 import { Square } from './features/Square'
 
 const App = () => {
 
   const board = useSelector((state) => state.board.board)
+  const mines = useSelector((state) => state.board.mines)
+  const dispatch = useDispatch();
+
+  var revealBoard = () => {
+    let updatedData = board;
+    updatedData.map((datarow) => {
+      datarow.map((dataitem) => {
+        dataitem.isRevealed = true;
+      });
+    });
+    dispatch(modifyboard({updatedData}))
+  }
+
+  var handleClick = (x, y) => {
+    console.log('got a click')
+    if (board[x][y].isRevealed || board[x][y].isFlagged) return null;
+
+    if (board[x][y].isMine) {
+      revealBoard();
+      alert('game over');
+    }
+
+    let updatedData = [...board]
+    updatedData[x][y].isFlagged = false;
+    updatedData[x][y].isRevealed = true;
+
+    if (updatedData[x][y].isEmpty) {
+      updatedData = revealEmpty(x, y, updatedData);
+    }
+
+    if (getHidden(updatedData).length === mines) {
+      revealBoard();
+      alert('you win');
+    }
+
+    dispatch(modifyboard({updatedData}))
+    let mineCount = mines - getFlags(updatedData).length
+    dispatch(modifyMines({mineCount}))
+  }
+
+  var handleContextMenu = (e, x, y) => {
+    e.preventDefault();
+    console.log('got a right click')
+    let updatedData = [...board];
+    let minesCount = mines;
+
+    if (updatedData[x][y].isRevealed) return;
+
+    if (updatedData[x][y].isFlagged) {
+      updatedData[x][y].isFlagged = false;
+      minesCount++;
+    } else {
+      updatedData[x][y].isFlagged = true;
+      minesCount--;
+    }
+
+    if (minesCount === 0) {
+      const mineArray = this.getMines(updatedData);
+      const FlagArray = this.getFlags(updatedData);
+      if (JSON.stringify(mineArray) === JSON.stringify(FlagArray)) {
+        dispatch(modifyMines({minesCount}))
+        revealBoard();
+        alert('you win');
+      }
+    }
+
+    dispatch(modifyboard({updatedData}))
+    dispatch(modifyMines({minesCount}))
+
+  }
 
   return (
     <div className='game'>
@@ -19,11 +88,8 @@ const App = () => {
             return (
               <div key={square.x * row.length + square.y}>
                 <Square
-                // key={square.x * row.length + square.y}
-                // board={gameBoard}
-                // key={square}
-                // onClick={() => {handleClick(square.x, square.y)}}
-                // cMenu={(e) => {handleContextMenu(e, square.x, square.y)}}
+                onClick={() => {handleClick(square.x, square.y)}}
+                cMenu={(e) => {handleContextMenu(e, square.x, square.y)}}
                 value={square}
                 />
                 {(row[row.length - 1] === square) ? <div className="clear" /> : ""}
@@ -36,57 +102,5 @@ const App = () => {
     </div>
   )
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <Counter />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <span>
-//           <span>Learn </span>
-//           <a
-//             className="App-link"
-//             href="https://reactjs.org/"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             React
-//           </a>
-//           <span>, </span>
-//           <a
-//             className="App-link"
-//             href="https://redux.js.org/"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Redux
-//           </a>
-//           <span>, </span>
-//           <a
-//             className="App-link"
-//             href="https://redux-toolkit.js.org/"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Redux Toolkit
-//           </a>
-//           ,<span> and </span>
-//           <a
-//             className="App-link"
-//             href="https://react-redux.js.org/"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             React Redux
-//           </a>
-//         </span>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default App;

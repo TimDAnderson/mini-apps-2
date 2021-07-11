@@ -69,6 +69,47 @@ const traverseBoard = (x, y, board, height, width) => {
   return adjacent;
 }
 
+export const revealEmpty = (x, y, data) => {
+  let area = traverseBoard(x, y, data);
+  area.map(value => {
+    if (!value.isFlagged && !value.isRevealed && (value.isEmpty || !value.isMine)) {
+      data[value.x][value.y].isRevealed = true;
+      if (value.isEmpty) {
+        revealEmpty(value.x, value.y, data);
+      }
+    }
+  });
+  return data;
+}
+
+export const getHidden = (data) => {
+  let mineArray = [];
+
+  data.map(datarow => {
+    datarow.map((dataitem) => {
+      if (!dataitem.isRevealed) {
+        mineArray.push(dataitem);
+      }
+    });
+  });
+
+  return mineArray;
+}
+
+export const getFlags = (data) => {
+  let mineArray = [];
+
+  data.map(datarow => {
+    datarow.map((dataitem) => {
+      if (dataitem.isFlagged) {
+        mineArray.push(dataitem);
+      }
+    });
+  });
+
+  return mineArray;
+}
+
 const getNeighbours = (board, height, width) => {
   let updatedBoard = board
 
@@ -110,12 +151,17 @@ export const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    modifyboard: (state, newBoard) => {
-      state.board = newBoard
+    modifyboard: (state, action) => {
+      const { board } = action.payload
+      state.board = board
+    },
+    modifyMines: (state, action) => {
+      const { mines } = action.payload
+      state.mines = mines
     }
   }
 })
 
-export const { modifyboard } = boardSlice.actions;
+export const { modifyboard, modifyMines } = boardSlice.actions;
 
 export default boardSlice.reducer;
