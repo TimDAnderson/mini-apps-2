@@ -3,7 +3,7 @@ These are four applications I developed to help sharpen my TypeScript, React, an
 ## 1. Historical Event Finder
 Uses TypeScript and React pagination
 ## 2. CryptoCurrency Graphing Tool
-uses TypeScript and generates charts from BTC price API requests
+Uses TypeScript and generates charts from BTC price API requests
 ## 3. Bowling
 80% test coverage with jest
 ## 4. Minesweeper
